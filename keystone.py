@@ -3,6 +3,7 @@ import keystoneclient.v2_0
 import sys
 
 ### pretty colors
+### there's probably a cleaner way to do this
 green = '\033[92m'
 red   = '\033[91m'
 clear = '\033[0m'

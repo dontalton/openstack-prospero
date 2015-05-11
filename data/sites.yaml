@@ -1,7 +1,7 @@
 ---
 sites:
   site1:
-    authurl: 'http://10.0.2.15:5000/v2.0'
+    authurl: 'http://10.0.2.15:5000/v2.0/'
     user: 'admin'
     pass: 'clean'
     tenant: 'admin'

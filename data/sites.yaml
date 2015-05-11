@@ -1,0 +1,24 @@
+---
+sites:
+  site1:
+    authurl: 'http://10.0.2.15:5000/v2.0'
+    user: 'admin'
+    pass: 'clean'
+    tenant: 'admin'
+    controllers:
+      - controller1
+      - controller2
+    computes:
+      - compute1
+      - compute2
+  site2:
+    authurl: 'http://10.0.2.15:5000/v2.0'
+    user: 'admin2'
+    pass: 'clean2'
+    tenant: 'admin2'
+    controllers:
+      - controller1
+      - controller2
+    computes:
+      - compute1
+      - compute2

@@ -16,7 +16,7 @@ def nova_check(site):
   authurl = sitedata['authurl']
 
   try:
-    nova = client.Client(username=user, password=password, tenant_name=tenant, auth_url=authurl, service="compute")
+    nc = client.Client(username=user, auth_url='http://10.0.2.15:5000/v2.0/', auth_token=token, tenant_id='', service='compute')
     nova.flavors.list()
     writelog('Nova check passed', 'error')
 

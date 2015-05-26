@@ -1,7 +1,9 @@
 ---
 sites:
   site1:
+    admin_token: 'clean'
     authurl: 'http://10.0.2.15:5000/v2.0/'
+    glanceurl: 'http://10.0.2.15:9292/'
     user: 'admin'
     pass: 'clean'
     tenant: 'admin'

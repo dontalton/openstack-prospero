@@ -1,10 +1,13 @@
 import json
-from novaclient.v2 import client
 import sys
+from novaclient.v2 import client
+from keystoneclient.auth.identity import v2
+from keystoneclient import session
 from shared import *
 
 ###
-# Connect to Nova. Create a VM. Check that it's UP/ACTIVE/pingable?.
+# Get a token from Keystone, then connect to Nova.
+# Create a VM. Check that it's UP/ACTIVE/pingable?.
 ###
 
 def nova_check(site):
@@ -16,12 +19,10 @@ def nova_check(site):
   authurl = sitedata['authurl']
 
   try:
-    nc = client.Client(username=user, auth_url='http://10.0.2.15:5000/v2.0/', auth_token=token, tenant_id='', service='compute')
-    nova.flavors.list()
-    writelog('Nova check passed', 'error')
-
+    # keystone auth, nova client instantiation
+    auth = v2.Password(auth_url=authurl, username=user, password=password, tenant_name='admin')
+    sess = session.Session(auth=auth)
+    nova = client.Client('2.0', session=sess)
+    writelog('Connected to Nova service', 'info')
   except Exception,e:
-    writelog('Nova check failed', 'error')
-
-
-nova_check('site1')
+    writelog('Failed to connect to Nova service', 'error')

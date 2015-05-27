@@ -1,14 +1,11 @@
-# rallysprint
-A lightweight tool for testing OpenStack deployments.
+# openstack-prospero
+A lightweight tool for testing multi-site OpenStack deployments.
 
 Usage:
 Edit data/sites.yaml to enter your site information, eg controllers, computes, authurl, etc.
 
-Supports multi-site testing.
-
 Run from the command-line:
-./runner.py SITENAME
+./runner.py SITENAME # SITENAME is what you called your site when adding it to sites.yaml
 
-eg using sample yaml data
-
+eg Using the supplied sample data; there is a site named 'site1'
 ./runner.py site1

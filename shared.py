@@ -7,11 +7,11 @@ f = open('data/sites.yaml')
 yamldata = yaml.load(f)
 
 def writelog(msg, level='info'):
-    coloredlogs.install()
+    coloredlogs.install(level=logging.ERROR)
     if level == 'error':
         logging.error(msg)
     else:
-       logging.info(msg)
+       print(msg)
 
 def get_token(site):
   sitedata = yamldata['sites'][site]
@@ -24,5 +24,7 @@ def get_token(site):
                          password=password, tenant_name=tenant, \
                          auth_url=authurl)
 
-  token = keystone_client.get_raw_token_from_identity_service(auth_url=authurl, username=user, password=password, tenant_name='admin')
+  token = keystone_client.get_raw_token_from_identity_service(auth_url=authurl, \
+                           username=user, password=password, tenant_name='admin')
+
   return token['token']['id']

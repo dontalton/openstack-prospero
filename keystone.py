@@ -35,7 +35,7 @@ def keystone_check(site):
                    description="rally sprint test tenant", enabled=True)
     
       tenant.delete()
-      writelog('Keystone check passed', 'info')
+      writelog('API: Keystone check passed', 'info')
 
   except Exception,e:
-      writelog('Keystone check failed', 'error')
+      writelog('API: Keystone check failed', 'error')

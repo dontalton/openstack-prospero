@@ -1,28 +1,33 @@
 from glanceclient import Client
 from shared import *
 
-site = 'site1'
-sitedata = yamldata['sites'][site]
-user = sitedata['user']
-password = sitedata['pass']
-tenant = sitedata['tenant']
-authurl = sitedata['authurl']
-glance_endpoint = sitedata['glanceurl']
-token = get_token(site)
 
+def glance_check(site):
 
-glance = Client('1', endpoint=glance_endpoint, token=token)
-images = glance.images.list()
-print images
+  # gotta wrap this up and pass it around rather than redefining it
+  sitedata = yamldata['sites'][site]
+  user = sitedata['user']
+  password = sitedata['pass']
+  tenant = sitedata['tenant']
+  authurl = sitedata['authurl']
+  glance_endpoint = sitedata['glanceurl']
+  token = get_token(site)
 
-for i in images:
-  print i
+  try:
+    glance = Client('2', endpoint=glance_endpoint, token=token)
+    image_id = glance.images.create(name='don image', container_format='bare', \
+                                    disk_format='qcow2')['id']
+    image = open('images/cirros-0.3.4-x86_64-disk.img', 'rb')
+    glance.images.upload(image_id=image_id, image_data=image)
+    glance.images.delete(image_id=image_id)
+    writelog('API: Glance check passed', 'info')
 
-#with open('images/cirros-0.3.4-x86_64-disk.img', 'wb') as f:
-#        for chunk in image.data:
-#            f.write(chunk)
+  except Exception,e:
+    writelog('API: Glance check failed', 'error')
 
-#print image.status
+def glance_create(site):
+  # create an image for nova to use
+  print 'placeholder'
 
-#image.delete()
-#image.list
+def glance_delete(id):
+  print 'placeholder'

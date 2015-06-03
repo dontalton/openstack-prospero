@@ -1,6 +1,7 @@
 import yaml
 import keystoneclient.v2_0
 import coloredlogs, logging
+from urllib2 import urlopen
 
 
 f = open('data/sites.yaml')
@@ -28,3 +29,15 @@ def get_token(site):
                            username=user, password=password, tenant_name='admin')
 
   return token['token']['id']
+
+def check_services(site):
+    sitedata = yamldata['sites'][site]
+    auth_url = sitedata['authurl']
+    glance_url = sitedata['glanceurl']
+    try:
+        data = urlopen(auth_url, timeout=2).read()
+        glance_check = urlopen(glance_url, timeout=2).read()
+        print 'Services are responding, commencing with tests' + '\n'
+        return True
+    except:
+        return False
